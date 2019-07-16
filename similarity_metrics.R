@@ -1,11 +1,3 @@
-# WSL path "/mnt/c/Users/TracingPC1/Desktop/R_scripts/similarity_metrics.R"
-
-# USAGE: ref.img.path should be the full path to the reference image. reg.img.folder should be the 
-# path to the folder containing the registered images you wish to evaluate
-
-# Load in ANTsR library
-# library(ANTsR)
-# library(ANTsRCore)
 
 # Path to the reference image
 ref.img.path <- '/mnt/c/Users/TracingPC1/Desktop/ANTSruns/volumes/zbrain3ch.nrrd'
@@ -18,7 +10,8 @@ subfolders <- list.dirs(full.names=FALSE, recursive=FALSE)
 file.name <- 'outputWarped.nii.gz'
 
 row.names <- c("MI", "CC", "Mattes", "GC", "MeanSquares")
-metric.values <- matrix(data=NA, nrow=5, ncol=length(subfolders), dimnames=list(row.names))
+col.names <- as.character(a:length(subfolders))
+metric.values <- matrix(data=NA, nrow=5, ncol=length(subfolders), dimnames=list(row.names, col.names))
 
 for(i in 1:length(subfolders)) {
   file.path = paste(reg.img.parent.path,subfolders[i],file.name, sep="/"); print(file.path)
@@ -57,20 +50,3 @@ for(i in 1:length(subfolders)) {
   
   print(metric.values)
 }
-
-
-# # ref.img <- antsImageRead(ref.img.path)
-# # files <- list.files(path = reg.img.folder.path, full.names = TRUE)
-# # reg.img.list <- lapply(files, antsImageRead)
-# # MI.list <- c()
-# #
-# # # Calculate the MI between the reference img and each registered img
-# # # (unitless quantity, lower is better)
-# # for(i in reg.img.list) {
-# #   MI <- antsImageMutualInformation(i, ref.img, 0.75, 32)
-# #   MI.list <- c(MI.list, MI)
-# # }
-# 
-# # Print the file names and MI metric values
-# files
-# MI.list
